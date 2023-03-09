@@ -1,0 +1,45 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+/*General color*/
+:root {
+    --egyptian-Blue: #2037A1;
+    --egyptian-Blue-dark: #0E1642
+}
+
+body {
+    font-weight: 300;
+    font-size: medium;
+    line-height: 1.6;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+.container {
+    min-width: 100vh;
+}
+
+.wrapper{
+max-width: 1280px;
+margin: 0 auto;
+padding: 2rem;
+background: white;
+text-align: center;
+}
+
+.search{
+    margin: 2rem 0;
+}
+
+.searchbtn {
+   padding: 10px
+}
+
+.search-content{
+    padding: 10px;
+    width: 300px;
+    border-radius: 20px;
+    border-color: var(--egyptian-Blue);
+}
