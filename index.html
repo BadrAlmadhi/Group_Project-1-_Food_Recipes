@@ -1,44 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Recipe Finder</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
-    <link rel="stylesheet">
-
+    <title>Meal Recipe Finder</title>
+    <link rel="stylesheet" href="./assets/css/CSS/styles.css">
 </head>
+
 <body>
-    <h1>
-        Food Recipe Finder
-    </h1>
+
     <div class="container">
-        <div class="row align-items-start">
-        <section class="search-area col">
-            <h3>
-                Search for a recipe:
-            </h3>
-            <form id="search-area">
-                <input id="recipe" type="text" placeholder="Recipe" name="Recipe">
-                <button id="search-button">Search</button>
-                <br>
-            </form>
-        </section>
-    
-        <section class="search-info col">
-            <div class="current-search"></div>
-            <div class="container">
-                <div id="recipeOptions" class="row align-items-start">
-                
+        <div class="wrapper">
+            <div class="search">
+                <h1 class="title">Find The Meal You Are Looking For</h1>
+                <blockquote>"Cooking is a caring and nurturing act. It's kind <br>of the ultimate gift for someone, to
+                    cook for them."<br><cite>- Curtis Stone</cite></blockquote>
+
+
+
+
+                <div class="searchbtn">
+                    <input type="text" class="search-content" placeholder="What are you craving" id="search-input">
+                    <button type="submit" class="search-btn btn" id="search-btn">
+                        <i class="fa fa-search"></i>
+                    </button>
                 </div>
             </div>
-        </section>
+            <div class="meal-display">
+                <h2 class="title">Your Result:</h2>
+                <div id="meal">
+                    <!-- Meal Items Result -->
+                    <div class="meal-item">
+                        <div class="meal-photo">
+                            <img src="/assets/food.fries.jpg" alt="food">
+                        </div>
+                        <div class="meal-name">
+                            <h3>French Fries</h3>
+                            <a href="#" class="Recipebtn">Get Recipe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>
-   
-
- 
-
+    </div>
+    <script src="/assets/JS/script.js"></script>
 </body>
+
 </html>
