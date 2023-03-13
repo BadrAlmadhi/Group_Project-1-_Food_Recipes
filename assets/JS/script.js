@@ -39,7 +39,7 @@ function getAPI(foodSearch)
             return response.json();
         })
         .then(function(data){
-            instructionStr=data.meals[1].strInstructions;
+            instructionStr=data.meals[0].strInstructions;
             getRecipe(instructionStr);
             //console.log(data.meals[1].strInstructions);
         })
@@ -47,11 +47,13 @@ function getAPI(foodSearch)
 
 function getRecipe(instructions)
 {
-    console.log("Instructions from getRecipe method")
-    console.log(instructions);
-    //getRecipeEl.createElement('p');
-    //getRecipeEl.textElement = instructions
-    displayInstructionsEl.append(instructions)
+    // splits instructions into individual paragraphs
+    let instructionsSplit = instructions.split('\n');
+    for (let i = 0; i < instructionsSplit.length; i++) {
+        let instructionP = document.createElement('p');
+        instructionP.textContent = instructionsSplit[i];
+        displayInstructionsEl.appendChild(instructionP);
+    }
 }
 
 //getRecipeEl.addEventListener("click",getRecipe);
