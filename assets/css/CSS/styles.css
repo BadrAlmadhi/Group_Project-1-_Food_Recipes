@@ -2,19 +2,28 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family:'Ubuntu', sans-serif;
 }
 /*General color*/
 :root {
     --egyptian-Blue: #2037A1;
-    --egyptian-Blue-dark: #0E1642
+    --egyptian-Blue-dark: #0E1642;
+    --background-color: #F7DC95;
+    --sidebg-color: #FDD872;
+    --text-color: #610A05;
+    --button-color: #FF8D5C;
+}
+
+header {
+    background-color: var(--header-color);
 }
 
 body {
+    background-color: var(--sidebg-color);
     font-weight: 300;
     font-size: medium;
     line-height: 1.6;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
+    color: var(--text-color);
 }
 
 .container {
@@ -25,7 +34,7 @@ body {
 max-width: 1280px;
 margin: 0 auto;
 padding: 2rem;
-background: white;
+background: var(--background-color);
 text-align: center;
 }
 
@@ -34,7 +43,25 @@ text-align: center;
 }
 
 .searchbtn {
-   padding: 10px
+   padding: 10px;
+}
+
+.search-btn {
+    padding:0.35em 1.2em;
+    border: 0.1em solid var(--header-color);
+    margin:0 0.3em 0.3em 0;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-decoration:none;
+    background-color: var(--text-color);
+    color: var(--button-color);
+    text-align:center;
+    transition: all 0.2s;
+}
+
+.search-btn:hover {
+    color: var(--text-color);
+    background-color: var(--button-color);
 }
 
 .search-content{
@@ -43,3 +70,8 @@ text-align: center;
     border-radius: 20px;
     border-color: var(--egyptian-Blue);
 }
+
+.title {
+    font-weight: 700;
+}
+
