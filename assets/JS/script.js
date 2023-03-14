@@ -1,7 +1,7 @@
 let searchInputEl = document.getElementById("search-input");
 let searchContentEl = document.getElementsByClassName("search-content");
 let searchButtonEl = document.getElementById("search-btn");
-let getRecipeEl = document.getElementsByClassName("Recipebtn");
+let getRecipeEl = document.getElementById("Recipebtn");
 let displayInstructionsEl = document.getElementById("displayInstructions");
 let showImageEl = document.getElementById("imageLink");
 let showImageEl2 = document.getElementById("meal-photo");
@@ -18,6 +18,12 @@ let instructionStr = '';
 let siteImage = '';
 let youtubeVideo = '';
 let link = '';
+
+let storingInstructions = '';
+let foodObj = JSON.parse(localStorage.getItem("ingredientsInfo"))||[];
+let instructionP = '';
+
+
 
 siteDefaultImage();
 
@@ -59,22 +65,30 @@ function getAPI(foodSearch)
             getRecipe(instructionStr);
             changeImage();
             getYoutubeAPI();
+            setYoutubeLink();
             //console.log(data.meals[1].strInstructions);
         })
 }
 
 function getRecipe(instructions)
 {
+    console.log("Instructions from getRecipe method")
+    console.log(instructions);
+    
+    displayInstructionsEl.append(instructions)
     // splits instructions into individual paragraphs
     let instructionsSplit = instructions.split('\n');
     for (let i = 0; i < instructionsSplit.length; i++) {
-        let instructionP = document.createElement('p');
+        instructionP = document.createElement('p');
         instructionP.textContent = instructionsSplit[i];
         displayInstructionsEl.appendChild(instructionP);
     }
+    localStorage.setItem("ingredientsInfo", JSON.stringify(foodObj))
 }
 
-
+foodObj = {
+    ingredients: instructionP
+}
 
 function changeImage(event)
 {
@@ -88,6 +102,21 @@ function changeImage(event)
 function siteDefaultImage()
 {
     showImageEl.setAttribute("src", "./assets/food.fries.jpg");
+}
+
+function changeImage(event)
+{
+    showImageEl.removeAttribute("img");
+    showImageEl.setAttribute("src", siteImage);
+   // youtubeVideo.setAttribute("src", youtubeVideo);
+    
+    
+}
+
+function siteDefaultImage()
+{
+    showImageEl.setAttribute("src", "/assets/food.fries.jpg");
+    
 }
 
 
@@ -121,7 +150,23 @@ function getYoutubeAPI()
             console.log(data.refinements.length);
             //console.log(data.refinements[0].url);
             console.log(data.items[0].url);
+            youtubeVideo = data.items[0].url;
+        });
+
+        //playVideoEl
+        
+}
+
+function setYoutubeLink()
+{
+    console.log("set youtube link")
+    playVideoEl.setAttribute("href", youtubeVideo)
+}
+
+playVideoEl.addEventListener("click", setYoutubeLink);
+
             //youtubeVideo = data.
         });
         
 }
+
