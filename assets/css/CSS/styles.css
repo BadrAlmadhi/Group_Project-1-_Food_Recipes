@@ -83,3 +83,13 @@ text-align: center;
     background-color: var(--button-color) !important;
     cursor: pointer;
 }
+
+#playerDivID #player
+{
+    background-color: var(--text-color);
+    color: bisque;
+    font-weight: bolder;
+    width: 15px;
+    font-size: 20px;
+    margin-top: 30px;
+}
