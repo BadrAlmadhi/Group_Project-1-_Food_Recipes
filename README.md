@@ -12,7 +12,7 @@ This recipe finding website was created in order to be a one stop shop for findi
 
 ### Links 
 * https://github.com/BadrAlmadhi/Group_Project-1-_Food_Recipes
-* 
+* https://badralmadhi.github.io/Group_Project-1-_Food_Recipes/
 
 ### Installation 
 Deployed through Github pages 
