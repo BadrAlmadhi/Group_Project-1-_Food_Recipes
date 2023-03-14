@@ -25,9 +25,10 @@ let instructionP = '';
 
 siteDefaultImage();
 
+// getting the food item to search for
 function getSearchValue(event)
 {
-    //foodItem = event.target.textContent;
+    
     foodItem = searchContentEl[0].value;
     console.log(foodItem)
 
@@ -37,7 +38,7 @@ function getSearchValue(event)
 }
 searchButtonEl.addEventListener("click", getSearchValue);
 
-
+// using the meal api to get instruction to make meal
 function getAPI(foodSearch)
 {
     console.log("getAPI method")
@@ -46,7 +47,7 @@ function getAPI(foodSearch)
     console.log('search in getAPI method', foodSearch);
     fetch(requestURL)
         .then(function(response){
-            if(response.status == 200)
+            if(response.status == 200) // checking for response
             {
                 console.log('Good response', response.status)
             }else if(response.status >= 400)
@@ -60,36 +61,41 @@ function getAPI(foodSearch)
             siteImage = data.meals[0].strMealThumb;
             youtubeVideo = data.meals[0].strYoutube;
             console.log("site Image:", siteImage);
-            instructionStr=data.meals[0].strInstructions;
-            getRecipe(instructionStr);
+            // instructionStr=data.meals[0].strInstructions;
+           // getRecipe(instructionStr);
             changeImage();
             getYoutubeAPI();
             setYoutubeLink();
+            foodObj = [
+                instructionStr
+           ];
+           localStorage.setItem("ingredientsInfo", JSON.stringify(foodObj))
             //console.log(data.meals[1].strInstructions);
         })
 }
 
-function getRecipe(instructions)
+// getting the recipe
+function getRecipe()
 {
-    console.log("Instructions from getRecipe method")
-    console.log(instructions);
     
-    displayInstructionsEl.append(instructions)
+    //displayInstructionsEl.append(instructionStr)
     // splits instructions into individual paragraphs
-    let instructionsSplit = instructions.split('\n');
+    let instructionsSplit = instructionStr.split('\n');// instructions.split('\n');
     for (let i = 0; i < instructionsSplit.length; i++) {
         instructionP = document.createElement('p');
         instructionP.textContent = instructionsSplit[i];
         displayInstructionsEl.appendChild(instructionP);
     }
-    localStorage.setItem("ingredientsInfo", JSON.stringify(foodObj))
+    
+    
 }
 
-getRecipeEl.addEventListener("click", getRecipe(instructionStr));
+getRecipeEl.addEventListener("click", getRecipe);
 
-foodObj = {
-    ingredients: instructionP
-}
+// foodObj = {
+//     ingredients: instructionP
+// }
+// localStorage.setItem("ingredientsInfo", JSON.stringify(foodObj))
 
 
 function changeImage(event)
