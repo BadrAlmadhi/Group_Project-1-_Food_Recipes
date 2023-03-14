@@ -1,7 +1,7 @@
 let searchInputEl = document.getElementById("search-input");
 let searchContentEl = document.getElementsByClassName("search-content");
 let searchButtonEl = document.getElementById("search-btn");
-let getRecipeEl = document.getElementsByClassName("Recipebtn");
+let getRecipeEl = document.getElementById("Recipebtn");
 let displayInstructionsEl = document.getElementById("displayInstructions");
 let showImageEl = document.getElementById("imageLink");
 let showImageEl2 = document.getElementById("meal-photo");
@@ -18,6 +18,10 @@ let instructionStr = '';
 let siteImage = '';
 let youtubeVideo = '';
 let link = '';
+let storingInstructions = '';
+let foodObj = JSON.parse(localStorage.getItem("ingredientsInfo"))||[];
+let instructionP = '';
+
 
 siteDefaultImage();
 
@@ -52,13 +56,15 @@ function getAPI(foodSearch)
             return response.json();
         })
         .then(function(data){
-            instructionStr=data.meals[1].strInstructions;
+            instructionStr=data.meals[0].strInstructions;
             siteImage = data.meals[0].strMealThumb;
             youtubeVideo = data.meals[0].strYoutube;
             console.log("site Image:", siteImage);
+            instructionStr=data.meals[0].strInstructions;
             getRecipe(instructionStr);
             changeImage();
             getYoutubeAPI();
+            setYoutubeLink();
             //console.log(data.meals[1].strInstructions);
         })
 }
@@ -69,8 +75,21 @@ function getRecipe(instructions)
     console.log(instructions);
     
     displayInstructionsEl.append(instructions)
+    // splits instructions into individual paragraphs
+    let instructionsSplit = instructions.split('\n');
+    for (let i = 0; i < instructionsSplit.length; i++) {
+        instructionP = document.createElement('p');
+        instructionP.textContent = instructionsSplit[i];
+        displayInstructionsEl.appendChild(instructionP);
+    }
+    localStorage.setItem("ingredientsInfo", JSON.stringify(foodObj))
 }
 
+getRecipeEl.addEventListener("click", getRecipe(instructionStr));
+
+foodObj = {
+    ingredients: instructionP
+}
 
 
 function changeImage(event)
@@ -119,7 +138,17 @@ function getYoutubeAPI()
             console.log(data.refinements.length);
             //console.log(data.refinements[0].url);
             console.log(data.items[0].url);
-            //youtubeVideo = data.
+            youtubeVideo = data.items[0].url;
         });
+
+        //playVideoEl
         
 }
+
+function setYoutubeLink()
+{
+    console.log("set youtube link")
+    playVideoEl.setAttribute("href", youtubeVideo)
+}
+
+playVideoEl.addEventListener("click", setYoutubeLink);
