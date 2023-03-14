@@ -68,7 +68,7 @@ text-align: center;
 .btn {
     padding:0.35em 1.2em;
     border: 0.1em solid var(--header-color);
-    margin:0 0.3em 0.3em 0;
+    margin: 0.4em 0.3em 0.3em 0.4em;
     border-radius: 10px;
     box-sizing: border-box;
     text-decoration:none;
