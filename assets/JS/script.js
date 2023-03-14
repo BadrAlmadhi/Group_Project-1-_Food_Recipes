@@ -163,10 +163,10 @@ function setYoutubeLink()
     playVideoEl.setAttribute("href", youtubeVideo)
 }
 
-playVideoEl.addEventListener("click", setYoutubeLink);
+// playVideoEl.addEventListener("click", setYoutubeLink);
 
-            //youtubeVideo = data.
-        });
+//             //youtubeVideo = data.
+//         });
         
-}
+// }
 
