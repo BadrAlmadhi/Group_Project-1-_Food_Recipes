@@ -52,7 +52,7 @@ function getAPI(foodSearch)
             return response.json();
         })
         .then(function(data){
-            instructionStr=data.meals[1].strInstructions;
+            instructionStr=data.meals[0].strInstructions;
             siteImage = data.meals[0].strMealThumb;
             youtubeVideo = data.meals[0].strYoutube;
             console.log("site Image:", siteImage);
@@ -87,8 +87,7 @@ function changeImage(event)
 
 function siteDefaultImage()
 {
-    showImageEl.setAttribute("src", "/assets/food.fries.jpg");
-    
+    showImageEl.setAttribute("src", "./assets/food.fries.jpg");
 }
 
 
