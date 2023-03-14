@@ -18,9 +18,11 @@ let instructionStr = '';
 let siteImage = '';
 let youtubeVideo = '';
 let link = '';
+
 let storingInstructions = '';
 let foodObj = JSON.parse(localStorage.getItem("ingredientsInfo"))||[];
 let instructionP = '';
+
 
 
 siteDefaultImage();
@@ -63,6 +65,7 @@ function getAPI(foodSearch)
             console.log("site Image:", siteImage);
             // instructionStr=data.meals[0].strInstructions;
            // getRecipe(instructionStr);
+
             changeImage();
             getYoutubeAPI();
             setYoutubeLink();
@@ -97,6 +100,19 @@ getRecipeEl.addEventListener("click", getRecipe);
 // }
 // localStorage.setItem("ingredientsInfo", JSON.stringify(foodObj))
 
+function changeImage(event)
+{
+    showImageEl.removeAttribute("img");
+    showImageEl.setAttribute("src", siteImage);
+   // youtubeVideo.setAttribute("src", youtubeVideo);
+    
+    
+}
+
+function siteDefaultImage()
+{
+    showImageEl.setAttribute("src", "./assets/food.fries.jpg");
+}
 
 function changeImage(event)
 {
@@ -158,3 +174,9 @@ function setYoutubeLink()
 }
 
 playVideoEl.addEventListener("click", setYoutubeLink);
+
+            //youtubeVideo = data.
+        });
+        
+}
+
