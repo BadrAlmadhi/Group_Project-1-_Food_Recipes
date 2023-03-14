@@ -18,9 +18,11 @@ let instructionStr = '';
 let siteImage = '';
 let youtubeVideo = '';
 let link = '';
+
 let storingInstructions = '';
 let foodObj = JSON.parse(localStorage.getItem("ingredientsInfo"))||[];
 let instructionP = '';
+
 
 
 siteDefaultImage();
@@ -60,7 +62,6 @@ function getAPI(foodSearch)
             siteImage = data.meals[0].strMealThumb;
             youtubeVideo = data.meals[0].strYoutube;
             console.log("site Image:", siteImage);
-            instructionStr=data.meals[0].strInstructions;
             getRecipe(instructionStr);
             changeImage();
             getYoutubeAPI();
@@ -85,12 +86,23 @@ function getRecipe(instructions)
     localStorage.setItem("ingredientsInfo", JSON.stringify(foodObj))
 }
 
-getRecipeEl.addEventListener("click", getRecipe(instructionStr));
-
 foodObj = {
     ingredients: instructionP
 }
 
+function changeImage(event)
+{
+    showImageEl.removeAttribute("img");
+    showImageEl.setAttribute("src", siteImage);
+   // youtubeVideo.setAttribute("src", youtubeVideo);
+    
+    
+}
+
+function siteDefaultImage()
+{
+    showImageEl.setAttribute("src", "./assets/food.fries.jpg");
+}
 
 function changeImage(event)
 {
@@ -152,3 +164,9 @@ function setYoutubeLink()
 }
 
 playVideoEl.addEventListener("click", setYoutubeLink);
+
+            //youtubeVideo = data.
+        });
+        
+}
+
