@@ -125,7 +125,7 @@ function changeImage(event)
 
 function siteDefaultImage()
 {
-    showImageEl.setAttribute("src", "/assets/food.fries.jpg");
+    showImageEl.setAttribute("src", "./assets/food.fries.jpg");
     
 }
 
