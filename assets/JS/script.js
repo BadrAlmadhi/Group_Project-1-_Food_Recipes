@@ -18,9 +18,12 @@ let instructionStr = '';
 let siteImage = '';
 let youtubeVideo = '';
 let link = '';
+let lengthOfItems = 0;
+let lowest = 0;
 
 let storingInstructions = '';
 let foodObj = JSON.parse(localStorage.getItem("ingredientsInfo"))||[];
+//let foodObj = [];
 let instructionP = '';
 
 
@@ -61,20 +64,27 @@ function getAPI(foodSearch)
         .then(function(data){
             instructionStr=data.meals[0].strInstructions;
             siteImage = data.meals[0].strMealThumb;
-            youtubeVideo = data.meals[0].strYoutube;
+           // youtubeVideo = data.meals[0].strYoutube;
             console.log("site Image:", siteImage);
             // instructionStr=data.meals[0].strInstructions;
            // getRecipe(instructionStr);
 
             changeImage();
             getYoutubeAPI();
-            setYoutubeLink();
-            foodObj = [
-                instructionStr
-           ];
+            
+            
+        //     foodObj = [
+        //         instructionStr
+        //    ];
+        ingredientsInfo = {
+            foodIntr: instructionStr
+        }
+
+       foodObj.push(ingredientsInfo);
+      // foodObj.push(instructionStr);
            localStorage.setItem("ingredientsInfo", JSON.stringify(foodObj))
             //console.log(data.meals[1].strInstructions);
-        })
+        });
 }
 
 // getting the recipe
@@ -84,10 +94,15 @@ function getRecipe()
     //displayInstructionsEl.append(instructionStr)
     // splits instructions into individual paragraphs
     let instructionsSplit = instructionStr.split('\n');// instructions.split('\n');
-    for (let i = 0; i < instructionsSplit.length; i++) {
+    console.log("Length of Food object", foodObj.length);
+    //for (let i = 0; i < instructionsSplit.length; i++) {
+    for (let i = 0; i < foodObj.length; i++) {
         instructionP = document.createElement('p');
-        instructionP.textContent = instructionsSplit[i];
+        //instructionP.textContent = instructionsSplit[i];
+        instructionP.textContent = foodObj[i];
         displayInstructionsEl.appendChild(instructionP);
+       // foodObj.textContent = instructionsSplit[i];
+        //displayInstructionsEl.appendChild(foodObj);
     }
     
     
@@ -157,10 +172,13 @@ function getYoutubeAPI()
             return response.json();
         })
         .then(function (data){
-            console.log(data.refinements.length);
+            console.log("Length of the youtube api data",data.items.length);
             //console.log(data.refinements[0].url);
             console.log(data.items[0].url);
-            youtubeVideo = data.items[0].url;
+            youtubeVideo = data.items[randomValue()].url;
+            lengthOfItems = data.items.length;
+           // console.log("Random Value",randomValue());
+           setYoutubeLink();
         });
 
         //playVideoEl
@@ -169,14 +187,13 @@ function getYoutubeAPI()
 
 function setYoutubeLink()
 {
-    console.log("set youtube link")
-    playVideoEl.setAttribute("href", youtubeVideo)
+    console.log("set youtube link");
+    playVideoEl.setAttribute("href", youtubeVideo);
 }
 
-// playVideoEl.addEventListener("click", setYoutubeLink);
+function randomValue()
+{
+    return Math.floor(Math.random() * (lengthOfItems - lowest));
+}
 
-//             //youtubeVideo = data.
-//         });
-        
-// }
-
+//console.log("Random Value",randomValue())
