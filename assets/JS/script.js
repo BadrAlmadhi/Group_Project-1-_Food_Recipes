@@ -3,14 +3,11 @@ let searchContentEl = document.getElementsByClassName("search-content");
 let searchButtonEl = document.getElementById("search-btn");
 let getRecipeEl = document.getElementById("Recipebtn");
 let displayInstructionsEl = document.getElementById("displayInstructions");
+let instructionsListEl = document.getElementById("instructionsList");
 let showImageEl = document.getElementById("imageLink");
 let showImageEl2 = document.getElementById("meal-photo");
 let playVideoEl = document.getElementById("player");
-
-//let youtubeTag = document
-
-
-//document.querySelector
+let clearbtnEl = document.getElementById("clear-btn");
 
 // Global variables
 let foodItem = '';
@@ -23,12 +20,26 @@ let lowest = 0;
 
 let storingInstructions = '';
 let foodObj = JSON.parse(localStorage.getItem("ingredientsInfo"))||[];
+let imageArr = JSON.parse(localStorage.getItem("ImageInfo"))||[];
+let setBooleanValueArr = JSON.parse(localStorage.getItem("boolValInfo"))||[];
 //let foodObj = [];
 let instructionP = '';
+
+ let changeImageValue = false;
 
 
 
 siteDefaultImage();
+showLastInstruction();
+
+
+// clearbtnEl.addEventListener("click", function(){
+//     localStorage.clear();
+//     instructionsListEl.innerHTML='';
+
+// });
+
+
 
 // getting the food item to search for
 function getSearchValue(event)
@@ -68,10 +79,10 @@ function getAPI(foodSearch)
             console.log("site Image:", siteImage);
             // instructionStr=data.meals[0].strInstructions;
            // getRecipe(instructionStr);
-
-            changeImage();
+           instructionsListEl.innerHTML='';
+            changeImage(siteImage);
             getYoutubeAPI();
-            
+           // changeImageValue = true;
             
         //     foodObj = [
         //         instructionStr
@@ -79,46 +90,72 @@ function getAPI(foodSearch)
         ingredientsInfo = {
             foodIntr: instructionStr
         }
+        ImageInfo = {
+            imagePic: siteImage
+        }
 
+        boolValInfo = {
+            val: changeImageValue
+        }
+       
        foodObj.push(ingredientsInfo);
-      // foodObj.push(instructionStr);
-           localStorage.setItem("ingredientsInfo", JSON.stringify(foodObj))
-            //console.log(data.meals[1].strInstructions);
+       localStorage.setItem("ingredientsInfo", JSON.stringify(foodObj))
+
+       imageArr.push(ImageInfo);
+       localStorage.setItem("ImageInfo", JSON.stringify(imageArr));
+
+        setBooleanValueArr.push(boolValInfo);
+        localStorage.setItem("boolValInfo", JSON.stringify(setBooleanValueArr));
+            
         });
 }
 
 // getting the recipe
 function getRecipe()
 {
-    
-    //displayInstructionsEl.append(instructionStr)
+
     // splits instructions into individual paragraphs
     let instructionsSplit = instructionStr.split('\n');// instructions.split('\n');
-    console.log("Length of Food object", foodObj.length);
-    //for (let i = 0; i < instructionsSplit.length; i++) {
-    for (let i = 0; i < foodObj.length; i++) {
+   
+    for (let i = 0; i < instructionsSplit.length; i++) {
         instructionP = document.createElement('p');
-        //instructionP.textContent = instructionsSplit[i];
-        instructionP.textContent = foodObj[i];
+        instructionP.textContent = instructionsSplit[i];
         displayInstructionsEl.appendChild(instructionP);
-       // foodObj.textContent = instructionsSplit[i];
-        //displayInstructionsEl.appendChild(foodObj);
+        console.log('print something');
     }
-    
-    
+}
+
+
+function showLastInstruction()
+{
+    if(foodObj.length)
+    {
+        let lastInstruction = foodObj[foodObj.length-1].foodIntr;
+        let instructionsSplit = lastInstruction.split('\n');
+        for(let i = 0; i < instructionsSplit.length;i++)
+        {
+            let instructionP2 = document.createElement('p');
+            instructionP2.textContent = instructionsSplit[i];
+            instructionsListEl.appendChild(instructionP2);
+            //displayInstructionsEl.appendChild(instructionP2);
+        }
+        
+
+    }
+
+    if(imageArr.length){
+        let lastImage = imageArr[imageArr.length-1].imagePic
+        changeImage(lastImage)
+    }
+    // find whats in local storage and display
 }
 
 getRecipeEl.addEventListener("click", getRecipe);
 
-// foodObj = {
-//     ingredients: instructionP
-// }
-// localStorage.setItem("ingredientsInfo", JSON.stringify(foodObj))
-
-function changeImage(event)
+function changeImage(imgSource)
 {
     showImageEl.removeAttribute("img");
-    showImageEl.setAttribute("src", siteImage);
+    showImageEl.setAttribute("src", imgSource);
    // youtubeVideo.setAttribute("src", youtubeVideo);
     
     
@@ -129,14 +166,7 @@ function siteDefaultImage()
     showImageEl.setAttribute("src", "./assets/food.fries.jpg");
 }
 
-function changeImage(event)
-{
-    showImageEl.removeAttribute("img");
-    showImageEl.setAttribute("src", siteImage);
-   // youtubeVideo.setAttribute("src", youtubeVideo);
-    
-    
-}
+
 
 function siteDefaultImage()
 {
@@ -149,6 +179,12 @@ function clearFoodItems(event)
 {
     searchContentEl[0].value.innerHTML='';
 }
+
+clearbtnEl.addEventListener("click", function(){
+    localStorage.clear();
+    instructionsListEl.innerHTML='';
+
+});
 
 function getYoutubeAPI()
 {
@@ -195,5 +231,3 @@ function randomValue()
 {
     return Math.floor(Math.random() * (lengthOfItems - lowest));
 }
-
-//console.log("Random Value",randomValue())
